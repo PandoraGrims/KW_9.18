@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Новые объявления на проверку</h2>
+    <ul>
+        {% for advertisement in new_ads %}
+            <li>
+                <h3>{{ advertisement.title }}</h3>
+                <p>{{ advertisement.description }}</p>
+                <button class="approve-btn" data-ad-id="{{ advertisement.pk }}">Одобрить</button>
+                <button class="reject-btn" data-ad-id="{{ advertisement.pk }}">Отклонить</button>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

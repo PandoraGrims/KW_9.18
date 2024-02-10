@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
-
+from . import views
 from accounts.views import RegisterView, ProfileView, UserPasswordChangeView, UserChangeView
 
 app_name = "accounts"

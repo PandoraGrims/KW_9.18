@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block link %}
+    {% if user.is_authenticated and advertisement.author == user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:advertisement_add" %}">Новая Публикация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:advertisement_edit" advertisement.pk %}">Редактирование</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ advertisement.title }}{% endblock %}
+
+
+{% block content %}
+    <a style="font-size: 24px; border: 1px solid blue; background-color: aqua" href="{% url 'accounts:profile' advertisement.author.pk %}">{{ advertisement.author.username }}</a>
+    <h2>{{ advertisement.title }}</h2>
+    <p>Category: {{ advertisement.category }}</p>
+    <p>Description: {{ advertisement.description }}</p>
+    <p>Price: {{ advertisement.price }}</p>
+    <p>Дата создания: {{ advertisement.created_at }}</p>
+
+
+    {% if advertisement.photo %}
+        <img src="{{ advertisement.photo.url }}" class="card-img-top w-25">
+    {% endif %}
+    {% if user.is_authenticated and advertisement.author == user %}
+        <a class="nav-link" href="{% url "webapp:advertisement_edit" advertisement.pk %}">Редактировать</a>
+        <a class="nav-link" href="{% url "webapp:advertisement_delete" advertisement.pk %}">Удалить</a>
+    {% endif %}
+    <h2>Комментарии</h2>
+
+
+    <h3>Добавить комментарий</h3>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'webapp:comment_create' advertisement.pk %}">
+            {% csrf_token %}
+            <textarea name="text" rows="4" cols="50"></textarea><br>
+            <button type="submit">Добавить комментарий</button>
+        </form>
+    {% endif %}
+
+    <ul>
+        {% for comment in advertisement.comments.all %}
+            <li>
+                <p>Автор: {{ comment.author }}</p>
+                <p>Дата: {{ comment.created_at }}</p>
+                <p>{{ comment.text }}</p>
+                {% if user.is_authenticated and comment.author == user %}
+                    <a href="{% url 'webapp:comment_delete' comment.pk %}">Удалить</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block link %}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:advertisement_add" %}">Новая Публикация</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Публикации</h1>
+    <div class="row">
+    {% include "partial/advertisement_list.html" %}
+    </div>
+{% endblock %}
