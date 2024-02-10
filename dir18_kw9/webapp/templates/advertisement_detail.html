@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block link %}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:advertisement_add" %}">Новая Публикация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:advertisement_edit" advertisement.pk %}">Редактирование</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ advertisement.title }}{% endblock %}
+
+{% block menu %}
+    {#    <a class="nav-link" aria-current="page" href="{% url 'webapp:index' %}">На главную</a>#}
+    {#    {% if perms.webapp.change_ad or ad.author == request.user %}#}
+    {#        <a class="nav-link" aria-current="page" href="{% url 'webapp:ad_update' pk=ad.pk %}">Редактировать</a>#}
+    {#    {% endif %}#}
+    {#    {% if perms.webapp.delete_ad or ad.author == request.user %}#}
+    {#        <a class="nav-link" aria-current="page" href="{% url 'webapp:ad_delete' pk=ad.pk %}">Удалить</a>#}
+    {#    {% endif %}#}
+
+    {#    {% if request.user.is_authenticated %}#}
+    {#        <a class="nav-link" aria-current="page" href="{% url 'webapp:comment_create' pk=ad.pk %}">Добавить отзыв</a>#}
+    {#    {% endif %}#}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ advertisement.title }}</h2>
+    <p>Category: {{ advertisement.category }}</p>
+    <p>Description: {{ advertisement.description }}</p>
+    <p>Price: {{ advertisement.price }}</p>
+    <p>Дата создания: {{ advertisement.created_at }}</p>
+    <p>Автор: {{ advertisement.author }}</p>
+    {% if advertisement.photo %}
+        <img src="{{ advertisement.photo.url }}" class="card-img-top w-25">
+    {% endif %}
+    <a class="nav-link" href="{% url "webapp:advertisement_edit" advertisement.pk %}">Редактировать</a>
+    <a class="nav-link" href="{% url "webapp:advertisement_delete" advertisement.pk %}">Удалить</a>
+
+    <h2>Комментарии</h2>
+    <ul>
+        {% for comment in advertisement.comments.all %}
+            <li>
+                <p>Автор: {{ comment.author }}</p>
+                <p>Дата: {{ comment.created_at }}</p>
+                <p>{{ comment.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'webapp:comment_create' advertisement.pk %}">Добавить комментарий</a>
+{% endblock %}

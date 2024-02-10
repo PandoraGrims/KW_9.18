@@ -7,10 +7,11 @@ app_name = "webapp"
 
 urlpatterns = [
     path('', AdvertisementListView.as_view(), name="index"),
-    # path('posts/add/', PostCreateView.as_view(), name="post_add"),
-    # path('post/<int:pk>/', PostDetailView.as_view(), name="post_view"),
-    # path('post/<int:pk>/update/', PostUpdateView.as_view(), name="post_update"),
-    # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name="post_delete"),
-    # path('post/<int:pk>/like/', LikePostView.as_view(), name="post_like"),
-    # path('user/<int:pk>/follower/', FollowersView.as_view(), name="follower")
+    path('advertisement/add/', AdvertisementCreateView.as_view(), name="advertisement_add"),
+    path('advertisement/<int:pk>/', AdvertisementDetailView.as_view(), name="advertisement_detail"),
+    path('advertisement/<int:pk>/edit/', AdvertisementUpdateView.as_view(), name='advertisement_edit'),
+    path('advertisement/<int:pk>/delete/', AdvertisementDeleteView.as_view(), name='advertisement_delete'),
+
+    path('advertisement/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_create'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
 ]

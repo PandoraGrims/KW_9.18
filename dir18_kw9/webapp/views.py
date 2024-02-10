@@ -8,21 +8,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class AdvertisementListView(ListView):
     model = Advertisement
-    queryset = Advertisement.objects.filter(status='published').order_by('-published_at')
     template_name = 'index.html'
     context_object_name = 'advertisements'
+    paginate_by = 6
+    paginate_orphans = 3
+    ordering = ('-published_at',)
 
 
 class AdvertisementDetailView(DetailView):
     model = Advertisement
     template_name = 'advertisement_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
     form_class = AdvertisementForm
     template_name = 'advertisement_create.html'
-    success_url = reverse_lazy('advertisement_list')
+    success_url = reverse_lazy('webapp:index')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -33,13 +39,13 @@ class AdvertisementUpdateView(LoginRequiredMixin, UpdateView):
     model = Advertisement
     form_class = AdvertisementForm
     template_name = 'advertisement_edit.html'
-    success_url = reverse_lazy('advertisement_list')
+    success_url = reverse_lazy('webapp:index')
 
 
 class AdvertisementDeleteView(LoginRequiredMixin, DeleteView):
     model = Advertisement
     template_name = 'advertisement_delete.html'
-    success_url = reverse_lazy('advertisement_list')
+    success_url = reverse_lazy('webapp:index')
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
@@ -53,7 +59,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('advertisement_detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('webapp:advertisement_detail', kwargs={'pk': self.kwargs['pk']})
 
 
 class CommentDeleteView(LoginRequiredMixin, DeleteView):
@@ -61,4 +67,4 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'comment_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('advertisement_detail', kwargs={'pk': self.object.advertisement.pk})
+        return reverse_lazy('webapp:advertisement_detail', kwargs={'pk': self.object.advertisement.pk})

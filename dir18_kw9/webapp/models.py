@@ -24,7 +24,7 @@ class Category(models.Model):
 
 
 class Advertisement(models.Model):
-    photo = models.ImageField(upload_to='photos/', verbose_name='Фотография ', blank=True, null=True)
+    photo = models.ImageField(upload_to='photos', verbose_name='Фотография ', blank=True, null=True)
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT,
                                default=1, related_name="advertisements", verbose_name="Автор")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
