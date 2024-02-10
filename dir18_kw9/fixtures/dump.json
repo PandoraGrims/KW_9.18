@@ -1,0 +1,40 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$Brb2Y3Eiu7igE69Ze5ri4k$NnFTtrtLLeh5NH/jbU5ujx4yeG7rsEuOyl8OwfZ36Rc=",
+        "last_login": "2024-02-10T11:08:26.329Z",
+        "is_superuser": false,
+        "username": "┬рё ",
+        "first_name": "┬рёшышщ",
+        "last_name": "╤шэшўъшэ",
+        "email": "gagag@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-02-10T07:11:26.557Z",
+        "phone": "+996554929255",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$41lMAimXkEfje1pVJ85Q4d$S+QZYtFEKpCdMrBL1wrtPApReaLBtEOk1AGc/20FVvA=",
+        "last_login": "2024-02-10T12:04:21.513Z",
+        "is_superuser": true,
+        "username": "pandora",
+        "first_name": "",
+        "last_name": "",
+        "email": "nimfanefor@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-02-10T07:37:21.907Z",
+        "phone": "+996554585855",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

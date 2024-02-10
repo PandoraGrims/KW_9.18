@@ -1,0 +1,31 @@
+[
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "moderators",
+    "permissions": [
+      [
+        "add_advertisement",
+        "webapp",
+        "advertisement"
+      ],
+      [
+        "change_advertisement",
+        "webapp",
+        "advertisement"
+      ],
+      [
+        "delete_advertisement",
+        "webapp",
+        "advertisement"
+      ],
+      [
+        "view_advertisement",
+        "webapp",
+        "advertisement"
+      ]
+    ]
+  }
+}
+]
